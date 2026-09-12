@@ -10,6 +10,14 @@
 
 当前是 **0.5.15 测试版**。Mac 版尚未完成 Apple Developer ID 签名与公证，也未上架 Mac App Store；Android 尚未上架 Google Play。Intel Mac 和 iOS 版本暂未提供。
 
+## 发布与支持
+
+- [下载、初次设置与支持网站](https://remote-vibe.eclipse-myworld.chatgpt.site/)
+- [隐私政策](https://remote-vibe.eclipse-myworld.chatgpt.site/privacy/) · [数据删除说明](https://remote-vibe.eclipse-myworld.chatgpt.site/support/)
+- [0.5.16 · Google Play 测试候选版与提交材料](https://github.com/yx3110/remote-vibe/releases/tag/v0.5.16)
+
+0.5.16 提供 API 36 的 Play AAB、商店素材、审核演示及验证报告。尚未上传 Play Console，也未通过商店审核。Play 版通过 Google Play 更新；直接安装的 APK 仍支持 Mac 传送更新。默认下载入口暂保留 0.5.15。
+
 ## 首次连接
 
 1. 在 Mac 下载 DMG，打开后将 Remote Vibe 拖入 Applications，再从“应用程序”启动。不需要 Python、Homebrew 或终端命令。
