@@ -1,18 +1,18 @@
 # Testing and release gates
 
-Candidate: 0.5.23 (36). Automated device tests use isolated Android emulators and `android/qa_receiver.py`; it renders synthetic screen data and never posts desktop input to the actual Mac. A dedicated purpose=qa route is used for public Cloudflare transport checks. No production pairing credentials are included in this package.
+Candidate: 0.5.24 (37). Automated device tests use isolated Android emulators and `android/qa_receiver.py`; it renders synthetic screen data and never posts desktop input to the actual Mac. A dedicated purpose=qa route is used for public Cloudflare transport checks. No production pairing credentials are included in this package.
 
 ## Build validation
 
 - compileSdk / targetSdk 36; minSdk 26. Same version source as the Mac receiver.
-- The current candidate has 42 unit tests per distribution, 84 total (see the generated `verification.json` for exact suites/counts); both release lint tasks must have no errors. Warnings are retained in the reports, not suppressed to imply a clean audit.
+- The current candidate has 43 unit tests per distribution, 86 total (see the generated `verification.json` for exact suites/counts); both release lint tasks must have no errors. Warnings are retained in the reports, not suppressed to imply a clean audit.
 - Official bundletool validates the AAB. AAB and APK signatures verified; direct/Play certificates must match. No native `.so` libraries in the Android bundle.
 - Manifest gate rejects APK installer / direct battery exemption permissions in Play, exported updater provider, cleartext traffic, debugging or backup enabled.
 - Public privacy and support routes must return HTTP 200 without account authentication. Some automated HTTP clients can trigger hosting anti-bot rules; anonymous normal browser/curl access was checked.
 
 ## Runtime scenarios and evidence scope
 
-0.5.23 tests notification Mac/session isolation, Java hash collisions in real Android PendingIntents, corrupt and unwritable encrypted pending storage, draft ownership after successful staging, and control/oversized text queue recovery. Failure checks use an injected storage boundary with the real Android Keystore. This does not simulate every physical disk or sudden-power-loss failure.
+0.5.24 adds review-mode checks for stale Mac confirmation dialogs and pending-to-draft ownership, alongside boundary, outbox, background and composer checks. Mac full regression is 248 tests; editor bridge uses a real loopback HTTP test with fixture terminals. Dependency audit covers the installed Mac runtime, Android resolved Maven artifacts, relay and website npm lockfiles. See CODE-REVIEW.md for findings and limits. Failure checks use injected storage boundaries and the real Android Keystore; they do not simulate every physical disk or sudden-power-loss failure.
 
 0.5.22 added Mac-side pairing revocation and terminal permission choices. Compact All windows actions and background conversation submission were introduced in 0.5.21. Current-build evidence is listed in verification.json; prior scenario descriptions remain a baseline, not new test claims.
 
