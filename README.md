@@ -8,7 +8,7 @@
 - [Android APK](https://github.com/yx3110/remote-vibe/releases/latest/download/Remote-Vibe.apk) · Android 8 或更新版本
 - [最新版本、安装说明和 SHA-256 校验文件](https://github.com/yx3110/remote-vibe/releases/latest)
 
-当前是 **0.5.22 测试版**。Mac 版尚未完成 Apple Developer ID 签名与公证，也未上架 Mac App Store；Android 尚未上架 Google Play。Intel Mac 和 iOS 版本暂未提供。
+当前是 **0.5.23 测试版**。Mac 版尚未完成 Apple Developer ID 签名与公证，也未上架 Mac App Store；Android 尚未上架 Google Play。Intel Mac 和 iOS 版本暂未提供。
 
 界面支持简体中文、繁體中文、English、日本語、Español、Italiano 和 Deutsch，可跟随系统或手动选择。手机「设置 → 语言」与 Mac 菜单栏的语言选择互不影响，离线也可切换。
 
@@ -21,6 +21,8 @@
 5. 按住说话需另装 TypeWhisper，下载语音模型并开启 API Server；App 设置提供下载入口。手机键盘自带的语音输入也可以使用。
 
 App 首次运行显示操作引导，以后可以从手机“设置”重新查看。Mac 设置中可以配置会话提醒与 Cursor/VS Code 终端扩展；需先自行安装和登录 Codex/Claude Code。
+
+0.5.23 修复跨 Mac 通知混淆、异常输入堵塞发送、存储失败遗留重试及重复草稿问题。升级后可继续使用原有配对；手机内检查更新即可。
 
 ## 安全与授权
 
