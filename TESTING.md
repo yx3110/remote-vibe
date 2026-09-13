@@ -1,16 +1,18 @@
 # Testing and release gates
 
-Candidate: 0.5.25 (38). Automated device tests use isolated Android emulators and `android/qa_receiver.py`; it renders synthetic screen data and never posts desktop input to the actual Mac. A dedicated purpose=qa route is used for public Cloudflare transport checks. No production pairing credentials are included in this package.
+Candidate: 0.5.26 (39). Automated device tests use isolated Android emulators and `android/qa_receiver.py`; it renders synthetic screen data and never posts desktop input to the actual Mac. A dedicated purpose=qa route is used for public Cloudflare transport checks. No production pairing credentials are included in this package.
 
 ## Build validation
 
 - compileSdk / targetSdk 36; minSdk 26. Same version source as the Mac receiver.
 - The current candidate has 43 unit tests per distribution, 86 total (see the generated `verification.json` for exact suites/counts); both release lint tasks must have no errors. Warnings are retained in the reports, not suppressed to imply a clean audit.
-- Official bundletool validates the AAB. AAB and APK signatures verified; direct/Play certificates must match. No native `.so` libraries in the Android bundle.
+- Official bundletool validates the AAB. AAB and APK signatures verified; direct/Play certificates must match. Compose now includes AndroidX graphics-path for four ABIs. The gate checks ELF LOAD alignment, 16 KB ZIP alignment in both APKs and AAB PAGE_ALIGNMENT_16K. RELRO offsets are recorded in native-alignment.json; actual 16 KB runtime validation remains pending.
 - Manifest gate rejects APK installer / direct battery exemption permissions in Play, exported updater provider, cleartext traffic, debugging or backup enabled.
 - Public privacy and support routes must return HTTP 200 without account authentication. Some automated HTTP clients can trigger hosting anti-bot rules; anonymous normal browser/curl access was checked.
 
 ## Runtime scenarios and evidence scope
+
+0.5.26 introduces the Compose / Material 3 settings screen. Current settings-mode evidence covers seven-language changes through the real new picker, draft/connection retention, saved and cancelled route changes, Activity recreation, privacy deletion cancellation and offline edits. Adaptive settings screenshots are retained separately. Earlier full-review scenarios below are historical baselines.
 
 0.5.24 adds review-mode checks for stale Mac confirmation dialogs and pending-to-draft ownership, alongside boundary, outbox, background and composer checks. Mac full regression is 248 tests; editor bridge uses a real loopback HTTP test with fixture terminals. Dependency audit covers the installed Mac runtime, Android resolved Maven artifacts, relay and website npm lockfiles. See CODE-REVIEW.md for findings and limits. Failure checks use injected storage boundaries and the real Android Keystore; they do not simulate every physical disk or sudden-power-loss failure.
 
@@ -58,6 +60,6 @@ Official requirements: [target API](https://support.google.com/googleplay/androi
 
 Long-press a session card and drag vertically, including the viewport edges. Dropping saves; Back, app backgrounding and dropping outside the list cancel. Check both active and history filters, search results, new-message refresh, reconnect, app recreation and another Mac. Ordering is local to the phone and applies to the loaded page; hidden search/page slots are retained. TalkBack offers move-up/down actions.
 
-## 0.5.25 scoped UI update
+## 0.5.26 scoped UI update
 
 Only the settings button/card hierarchy and shared release version changed. The current APK ran header checks on API 36 phone and compatibility checks on the fold-open profile, plus both channels' 86 unit tests and release lint. The 0.5.24 full-review scenarios above remain historical baseline, not rerun results for this APK.
