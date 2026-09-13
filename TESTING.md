@@ -1,16 +1,18 @@
 # Testing and release gates
 
-Candidate: 0.5.26 (39). Automated device tests use isolated Android emulators and `android/qa_receiver.py`; it renders synthetic screen data and never posts desktop input to the actual Mac. A dedicated purpose=qa route is used for public Cloudflare transport checks. No production pairing credentials are included in this package.
+Candidate: 0.5.27 (40). Automated device tests use isolated Android emulators and `android/qa_receiver.py`; it renders synthetic screen data and never posts desktop input to the actual Mac. A dedicated purpose=qa route is used for public Cloudflare transport checks. No production pairing credentials are included in this package.
 
 ## Build validation
 
 - compileSdk / targetSdk 36; minSdk 26. Same version source as the Mac receiver.
 - The current candidate has 43 unit tests per distribution, 86 total (see the generated `verification.json` for exact suites/counts); both release lint tasks must have no errors. Warnings are retained in the reports, not suppressed to imply a clean audit.
-- Official bundletool validates the AAB. AAB and APK signatures verified; direct/Play certificates must match. Compose now includes AndroidX graphics-path for four ABIs. The gate checks ELF LOAD alignment, 16 KB ZIP alignment in both APKs and AAB PAGE_ALIGNMENT_16K. RELRO offsets are recorded in native-alignment.json; actual 16 KB runtime validation remains pending.
+- Official bundletool validates the AAB. AAB and APK signatures verified; direct/Play certificates must match. Compose now includes AndroidX graphics-path for four ABIs. The gate checks ELF LOAD alignment, 16 KB ZIP alignment in both APKs and AAB PAGE_ALIGNMENT_16K. RELRO offsets are recorded in native-alignment.json; the 0.5.27 ARM64 runtime check uses an actual 16 KB Android 16 kernel with both backcompat switches disabled, explicitly loads the packaged graphics library and runs the compatibility UI scenario. Other ABIs have static alignment checks only.
 - Manifest gate rejects APK installer / direct battery exemption permissions in Play, exported updater provider, cleartext traffic, debugging or backup enabled.
 - Public privacy and support routes must return HTTP 200 without account authentication. Some automated HTTP clients can trigger hosting anti-bot rules; anonymous normal browser/curl access was checked.
 
 ## Runtime scenarios and evidence scope
+
+0.5.27 unifies Remote, Sessions, Screen, the shared composer and onboarding with the Material 3 settings design. Main navigation uses Compose with the AndroidX back dispatcher. Unchanged connection status notifications are no longer reposted on every UI observation; runtime language checks assert that 20 repeated observations keep the notification timestamp and that attention messages still update with locale changes. Current candidate evidence is limited to the exact APK hash and API/window/language cases recorded in verification.json; device manufacturer ROMs still need physical testing.
 
 0.5.26 introduces the Compose / Material 3 settings screen. Current settings-mode evidence covers seven-language changes through the real new picker, draft/connection retention, saved and cancelled route changes, Activity recreation, privacy deletion cancellation and offline edits. Adaptive settings screenshots are retained separately. Earlier full-review scenarios below are historical baselines.
 
@@ -63,3 +65,5 @@ Long-press a session card and drag vertically, including the viewport edges. Dro
 ## 0.5.26 scoped UI update
 
 Only the settings button/card hierarchy and shared release version changed. The current APK ran header checks on API 36 phone and compatibility checks on the fold-open profile, plus both channels' 86 unit tests and release lint. The 0.5.24 full-review scenarios above remain historical baseline, not rerun results for this APK.
+
+Current-feature checks cover live model/effort updates while browsing history, quota labels, all four arrow events in normal/fullscreen views, receipt-safe manual resend and durable local deletion. See the exact build evidence; previous artifacts are not claimed as current tests.
