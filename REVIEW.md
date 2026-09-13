@@ -1,6 +1,6 @@
 # App review and foreground-service declaration draft
 
-App: Remote Vibe · package dev.switchpad.remote · candidate 0.5.24 (37).
+App: Remote Vibe · package dev.switchpad.remote · candidate 0.5.25 (38).
 
 ## Reviewer access
 
