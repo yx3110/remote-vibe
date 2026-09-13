@@ -1,8 +1,15 @@
-# 0.5.23 security review · 2026-09-13
+# 0.5.24 security review · 2026-09-13
 
 This is a scoped engineering review and automated verification record, not an independent penetration test or a claim that every security defect has been eliminated.
 
-## New protections in 0.5.23
+## Full review and new protections in 0.5.24
+
+See [CODE-REVIEW.md](CODE-REVIEW.md) for all nine findings, trigger conditions, code locations, fixes and remaining limits. Changes isolate loopback service requests from proxies/redirects, preserve clipboard ownership and formats, cancel late transcription, preserve existing user hooks, bind dialogs to a Mac, prevent duplicate pending recovery, tolerate receipt-storage failure and bound oversized-log scans. The website dependency findings are tracked and deployed separately.
+
+248 full Python tests and 86 Android unit tests pass. Current APK runtime evidence covers review, boundary, outbox, background, composer and header checks, plus the fold-open compatibility profile. Mac and Android artifacts share 0.5.24; exact hashes and reports accompany the candidate. Dependency checks found no known matches in the installed Mac runtime, resolved Android Maven artifacts or updated relay/site lockfiles. This is internal review, not independent certification.
+
+## Protections retained from 0.5.23
+
 
 - Notification slots and immutable PendingIntents use a full SHA-256 identity scoped to Mac plus session, rather than Java session hashCode. Same IDs on different Macs and colliding session hashes no longer overwrite destinations. A notification for a removed Mac cannot open that session ID on the currently connected Mac.
 - Literal text validation occurs before either queue accepts it: 1–8000 Unicode code points, no unsupported control characters or broken surrogate pairs. Transient events have a serialized byte cap and owned snapshots; a defensive flush guard rejects an oversized head rather than blocking all later input.
@@ -17,7 +24,7 @@ This is a scoped engineering review and automated verification record, not an in
 - New terminal sessions use the Mac owner's selected policy. An unconfigured Mac defaults to standard: Codex workspace-write sandbox with on-request approval; Claude inherits its CLI permission settings. Full access is a local explicit choice with confirmation, including a description of command/file access. Existing sessions, models and shell aliases are not edited. Users upgrading from a previous version should review this new preference.
 - The distribution build requires a real Developer ID identity before notarizing. It requires Accepted responses, staples both app and DMG, checks their tickets and Gatekeeper, and hashes the final artifact. Ad-hoc builds explicitly record that they are not notarized. Credentials stay in the owner's keychain.
 
-## Evidence for 0.5.23
+## Previous evidence for 0.5.23 (historical)
 
 Android two-channel 84 unit tests and lint pass. API 36 fault injection exercises the real Android Keystore, real PendingIntent identity and isolated QA transport. Current-build boundary, outbox, background and composer results are included in verification.json. Tests model a rejected storage write, not every filesystem failure or power-loss scenario. Android framework identity and persistence behavior are documented in [PendingIntent](https://developer.android.com/reference/android/app/PendingIntent) and [SharedPreferences](https://developer.android.com/reference/android/content/SharedPreferences).
 
