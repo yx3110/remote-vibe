@@ -1,27 +1,31 @@
-# 0.5.21 security review · 2026-09-13
+# 0.5.22 security review · 2026-09-13
 
-This is a scoped developer review, not an independent penetration test or store approval.
+This is a scoped engineering review and automated verification record, not an independent penetration test or a claim that every security defect has been eliminated.
 
-## Changes in this release
+## New protections
 
-- Submitted conversation messages target the selected CLI without activating its app/tab or using the shared clipboard. The receiver checks current UID, TTY, executable name, process start identity and foreground process group, rechecks lock state, and checks the connection lease/deadline before dispatch. Terminal also checks the target tab's process list. Stale or unsupported targets fail without falling back to the active window.
-- Multiline messages use bracketed paste and one submission. Embedded Escape, Delete and other disallowed control characters cannot break out of the message. Prompts go through the subprocess standard input, not the process argument list. Lost acknowledgements retain the existing uncertain receipt instead of automatically typing twice.
-- Existing Mac pairing credential files regain mode 0600 on startup. Pairing identity remains unchanged.
-- Responses from the local editor bridge are capped at 1 MiB.
-- A stale or incomplete cached phone update no longer hides a newer valid update bundled with the Mac app. Downloads still require pairing and verify the advertised digest; Android additionally checks package, version and signing certificate.
+- Session reorder gestures stay inside this app: no ClipData or global drag flag exposes session content to another app. Only session identifiers and order are saved in app-private preferences, separated by Mac identity and active/history scope. App data clearing removes this preference; no reorder request or shell input is sent to the Mac.
 
-## Checked boundaries
+- Mac menu bar → Security & permissions → Revoke all pairings. The local UI requires confirmation, atomically rotates the private bearer token, invalidates the active control lease and cancels queued phone input. The Mac identity and certificate pin remain stable. Disk-write failure leaves the previous working pairing intact. Previously displayed QR codes become invalid; phones must scan a new code.
+- Authorization is checked again after reading a POST body and inside the locked lease-creation operation. A request authenticated before revocation cannot finish uploading later and acquire a new control lease. Long-running transcription also rechecks the lease before returning its result.
+- New terminal sessions use the Mac owner's selected policy. An unconfigured Mac defaults to standard: Codex workspace-write sandbox with on-request approval; Claude inherits its CLI permission settings. Full access is a local explicit choice with confirmation, including a description of command/file access. Existing sessions, models and shell aliases are not edited. Users upgrading from a previous version should review this new preference.
+- The distribution build requires a real Developer ID identity before notarizing. It requires Accepted responses, staples both app and DMG, checks their tickets and Gatekeeper, and hashes the final artifact. Ad-hoc builds explicitly record that they are not notarized. Credentials stay in the owner's keychain.
 
-126 Mac/receiver/transport regression tests passed, including invalid bearer credentials, browser-origin rejection, bounded input, expired/replaced sessions, lock-screen separation, delivery idempotency and local real-workerd relay authentication/stream isolation. Expected TLS rejection diagnostics in these negative tests are not test failures. Editor bridge contract tests passed.
+## Evidence for this iteration
 
-An isolated native Terminal recorder received approximately 24 KB of Unicode, multiline text and shell-looking literal characters through the production submission method. Foreground application, selected tabs and clipboard change count stayed unchanged. Exactly one final Return arrived, and input after recorder exit was rejected. No input was sent to a real user CLI during this test. iTerm uses its documented exact-session `write text … newline NO` API; an installed iTerm runtime was not exercised in this release. Reference: https://iterm2.com/documentation-scripting.html
+122 targeted Python tests passed, covering bearer rejection, origin restrictions, slow-upload/reset races, stable identity/pin, credential file permissions, failed disk replacement, queued password clearing, terminal policies, notarization failure handling, session controls, background input, receipts, lock-screen input, updates and real local workerd relay authentication/isolation. Negative TLS/auth tests intentionally reject connections.
 
-Reviewed existing protections: QR certificate pinning and inner TLS through relay, separate relay roles/tickets, Android Keystore storage, fresh strong-biometric unlock binding, no password in the durable outbox, private notifications, disabled application backup, and package-signature checks. Runtime evidence attached to the release identifies what was rerun on this exact build; review alone is not a new runtime test.
+Native Mac controls were exercised with isolated credentials: cancel leaves pairing unchanged; confirming reset revokes it; full-access cancel leaves standard mode; confirmed preferences persist. The real user's pairing was not reset. Seven-language setup and security windows passed text-bound checks and produced native screenshots. Chinese and German security screenshots were visually reviewed. Android and public-update checks are bound to the current build in verification.json.
 
-## Limits and follow-up
+The real Developer ID and Apple notarization workflow could not be executed: this Mac has zero usable signing identities. The tests cover failure paths and command orchestration with mocked Apple results. A second Mac must verify downloaded, quarantined and offline first launch after real signing becomes available.
 
-- Pairing is a long-lived shared control credential. Removing a phone entry does not revoke copies elsewhere. A dedicated Mac-side revoke/rotate flow with per-device credentials is still desirable. Currently a Mac-side pairing reset and separate relay-route revocation are required after credential loss; never publish pairing QR codes.
-- Terminal's scripting API cannot atomically bind input to a specific running CLI. Identity/foreground checks and the immediate tab process check narrow, but cannot eliminate, a process-exit race. This does not replace OS user isolation or protect a compromised same-user Mac account.
-- Normal remote keyboard actions, terminal option keys and model-menu navigation may intentionally activate a target. This release changes submitted conversation messages; explicit “view on Mac” still activates the selected session.
-- Mac downloads remain ad-hoc signed and unnotarized. Developer ID signing/notarization and independent security review remain release work before a wider stable launch.
-- Physical-device biometric/OEM background behavior, Play delivery and external network conditions require the separately documented device/store tests.
+## Boundaries and remaining work
+
+- Pairing still uses one shared long-lived bearer credential per Mac. Reset revokes **all** phones, not a selected individual phone. Per-device identities, expiring invitations and granular permissions remain future improvements. Do not publish pairing QR codes.
+- Pairing reset revokes application access, but does not rotate the separate Cloudflare route credentials. A copied route key may still reach the encrypted transport without being able to authenticate to the Mac. If a route key is exposed, the relay operator must separately rotate/revoke that route; consider denial-of-service and reconnect contention in the independent review.
+- Revocation cannot undo operations already executed or already dispatched. Memory clearing of queued password fields reduces retention, but does not promise cryptographic erasure of immutable Python objects or system buffers. Durable password storage remains disabled.
+- Terminal scripting cannot atomically bind the entire input operation to a running CLI. Process identity and foreground-group checks narrow but do not eliminate a process-exit race. This does not protect a compromised same-user Mac account. iTerm's documented path was not tested against a live installed iTerm runtime.
+- Submitted conversation text uses the background route introduced in 0.5.21. Ordinary keyboard controls and model-menu navigation may activate the target; explicit view-on-Mac still activates it.
+- Public QR authorization grants extensive Mac control. Screen, terminal and password capabilities need focused independent review. Physical device biometrics/OEM background behavior, Play-delivered installation, network changes and multi-user abuse testing remain open gates in TESTING.md.
+
+Codex flags were checked against the installed CLI and [official CLI reference](https://learn.chatgpt.com/docs/developer-commands?surface=cli). Mac distribution references and the exact command are in install/mac/DISTRIBUTION.md.
