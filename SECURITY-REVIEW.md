@@ -1,8 +1,14 @@
-# 0.5.22 security review · 2026-09-13
+# 0.5.23 security review · 2026-09-13
 
 This is a scoped engineering review and automated verification record, not an independent penetration test or a claim that every security defect has been eliminated.
 
-## New protections
+## New protections in 0.5.23
+
+- Notification slots and immutable PendingIntents use a full SHA-256 identity scoped to Mac plus session, rather than Java session hashCode. Same IDs on different Macs and colliding session hashes no longer overwrite destinations. A notification for a removed Mac cannot open that session ID on the currently connected Mac.
+- Literal text validation occurs before either queue accepts it: 1–8000 Unicode code points, no unsupported control characters or broken surrogate pairs. Transient events have a serialized byte cap and owned snapshots; a defensive flush guard rejects an oversized head rather than blocking all later input.
+- Pending prompt, transcript baseline exclusions and automatic retry metadata commit together. Failed saves roll back the in-memory queue; failed loads prevent overwriting existing unreadable ciphertext. The existing Android Keystore AES-GCM protection remains. Once staging succeeds, the queue owns the message and the editor clears; a later receipt-save failure retries the original ID without retaining a second editable draft.
+
+## Protections retained from 0.5.22
 
 - Session reorder gestures stay inside this app: no ClipData or global drag flag exposes session content to another app. Only session identifiers and order are saved in app-private preferences, separated by Mac identity and active/history scope. App data clearing removes this preference; no reorder request or shell input is sent to the Mac.
 
@@ -11,7 +17,13 @@ This is a scoped engineering review and automated verification record, not an in
 - New terminal sessions use the Mac owner's selected policy. An unconfigured Mac defaults to standard: Codex workspace-write sandbox with on-request approval; Claude inherits its CLI permission settings. Full access is a local explicit choice with confirmation, including a description of command/file access. Existing sessions, models and shell aliases are not edited. Users upgrading from a previous version should review this new preference.
 - The distribution build requires a real Developer ID identity before notarizing. It requires Accepted responses, staples both app and DMG, checks their tickets and Gatekeeper, and hashes the final artifact. Ad-hoc builds explicitly record that they are not notarized. Credentials stay in the owner's keychain.
 
-## Evidence for this iteration
+## Evidence for 0.5.23
+
+Android two-channel 84 unit tests and lint pass. API 36 fault injection exercises the real Android Keystore, real PendingIntent identity and isolated QA transport. Current-build boundary, outbox, background and composer results are included in verification.json. Tests model a rejected storage write, not every filesystem failure or power-loss scenario. Android framework identity and persistence behavior are documented in [PendingIntent](https://developer.android.com/reference/android/app/PendingIntent) and [SharedPreferences](https://developer.android.com/reference/android/content/SharedPreferences).
+
+16 targeted Python localization, update and delivery tests passed. The Mac receiver implementation is unchanged apart from the shared release version; the rebuilt bundle and public APK update are checked separately.
+
+## Previous 0.5.22 baseline (not all rerun)
 
 122 targeted Python tests passed, covering bearer rejection, origin restrictions, slow-upload/reset races, stable identity/pin, credential file permissions, failed disk replacement, queued password clearing, terminal policies, notarization failure handling, session controls, background input, receipts, lock-screen input, updates and real local workerd relay authentication/isolation. Negative TLS/auth tests intentionally reject connections.
 
