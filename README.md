@@ -8,7 +8,7 @@
 - [Android APK](https://github.com/yx3110/remote-vibe/releases/latest/download/Remote-Vibe.apk) · Android 8 或更新版本
 - [最新版本、安装说明和 SHA-256 校验文件](https://github.com/yx3110/remote-vibe/releases/latest)
 
-当前是 **0.5.24 测试版**。Mac 版尚未完成 Apple Developer ID 签名与公证，也未上架 Mac App Store；Android 尚未上架 Google Play。Intel Mac 和 iOS 版本暂未提供。
+当前是 **0.5.25 测试版**。Mac 版尚未完成 Apple Developer ID 签名与公证，也未上架 Mac App Store；Android 尚未上架 Google Play。Intel Mac 和 iOS 版本暂未提供。
 
 界面支持简体中文、繁體中文、English、日本語、Español、Italiano 和 Deutsch，可跟随系统或手动选择。手机「设置 → 语言」与 Mac 菜单栏的语言选择互不影响，离线也可切换。
 
@@ -22,7 +22,7 @@
 
 App 首次运行显示操作引导，以后可以从手机“设置”重新查看。Mac 设置中可以配置会话提醒与 Cursor/VS Code 终端扩展；需先自行安装和登录 Codex/Claude Code。
 
-0.5.24 新增连接卡片右上角的独立设置齿轮，完成完整代码审查并修复 9 类安全/可靠性问题。升级后继续使用原有配对，手机内检查更新即可。完整发现与证据见 CODE-REVIEW.md；Mac 公证仍待所有者安装证书。
+0.5.25 将设置齿轮移出连接卡片，形成有独立背景和间距的按钮。手机内检查更新即可。0.5.24 完整代码审查与修复记录见 CODE-REVIEW.md；Mac 公证仍待所有者安装证书。
 
 ## 安全与授权
 
@@ -36,7 +36,7 @@ Mac 菜单栏可打开“安全与授权”。手机丢失或二维码泄露时�
 
 ## 三种连接方式
 
-在手机点连接卡片右上角的齿轮 → 连接方式，为每台 Mac 分别保存：
+在手机点连接卡片右侧的独立齿轮 → 连接方式，为每台 Mac 分别保存：
 
 | 方式 | 使用条件 |
 | --- | --- |
