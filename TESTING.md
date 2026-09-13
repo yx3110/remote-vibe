@@ -1,6 +1,6 @@
 # Testing and release gates
 
-Candidate: 0.5.20 (31). Automated device tests use isolated Android emulators and `android/qa_receiver.py`; it renders synthetic screen data and never posts desktop input to the actual Mac. A dedicated purpose=qa route is used for public Cloudflare transport checks. No production pairing credentials are included in this package.
+Candidate: 0.5.21 (33). Automated device tests use isolated Android emulators and `android/qa_receiver.py`; it renders synthetic screen data and never posts desktop input to the actual Mac. A dedicated purpose=qa route is used for public Cloudflare transport checks. No production pairing credentials are included in this package.
 
 ## Build validation
 
@@ -12,7 +12,9 @@ Candidate: 0.5.20 (31). Automated device tests use isolated Android emulators an
 
 ## Runtime scenarios and evidence scope
 
-0.5.20 adds Japanese, Spanish, Italian and German to the existing English and Chinese interfaces, with seven-language real-picker, notification, draft/connection retention and first-use guide checks in `localization/`. Native button layout checks cover phone, large-font and unfolded sizes. The UI audit introduced in 0.5.18 and compatibility matrix introduced in 0.5.17 remain available; current-version reruns are exactly those listed in `verification.json`. The scenarios below describe the broader 0.5.16 release baseline and are not all claimed as newly rerun. Manufacturer ROM behavior still needs real devices.
+0.5.21 adds compact remote-page All windows actions and validated background conversation submission on Mac. Current-build evidence is listed in verification.json; prior scenario descriptions remain a baseline, not new test claims.
+
+0.5.20 added Japanese, Spanish, Italian and German to the existing English and Chinese interfaces, with seven-language real-picker, notification, draft/connection retention and first-use guide checks in `localization/`. Native button layout checks cover phone, large-font and unfolded sizes. The UI audit introduced in 0.5.18 and compatibility matrix introduced in 0.5.17 remain available; current-version reruns are exactly those listed in `verification.json`. The scenarios below describe the broader 0.5.16 release baseline and are not all claimed as newly rerun. Manufacturer ROM behavior still needs real devices.
 
 Results are kept in the candidate's `runtime/` folder and summarized in `verification.json`.
 
