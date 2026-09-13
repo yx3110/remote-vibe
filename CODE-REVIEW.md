@@ -87,3 +87,11 @@
 4. 开发者身份、支持邮箱、Play Console 账号和适用的真实封闭测试及商店审批仍需所有者完成。现有报告是同一开发者工具的内部复核，不能冒充独立安全审计。
 
 UI 自动化仅连接隔离接收端，屏幕/会话为虚构数据。未输入真实解锁密码，未更改使用中的会话模型，也未向用户的终端发送测试指令。公网最终更新校验只读取状态及下载 APK，不获取桌面画面或控制租约。
+
+## 0.5.27 current session, allowance and resend changes
+
+- Selected-session metadata refresh is independent of transcript paging. Confirmed model choices display immediately. Passive Terminal/iTerm reads never activate a tab; background polling does not invoke the editor clipboard bridge. Claude’s status-line adapter preserves an existing renderer and stores only model, effort, quota windows and timestamps in private files.
+- Codex allowance is read through the installed CLI app-server’s read-only account endpoint over stdio; no thread or model turn is started, no auth material reaches the phone, and refresh is bounded to once per minute. Claude quota is reported by the official status line after a supported subscription session receives a response. Missing windows and stale observations are explicit.
+- Both new metadata/allowance endpoints require paired authentication, a live lease and an unlocked Mac. Existing role/control boundaries are retained.
+- Every unconfirmed outbox state remains actionable. Manual resend validates the original receipt digest, checks transcript confirmation, refuses to duplicate queued/in-flight work, and records a separate retry ID durably. Transport replay of that retry ID cannot trigger another resend. An ambiguous CLI acceptance can still produce a duplicate after a deliberate new resend; the phone explains this before confirmation. Local deletion stops that phone’s retry record; it does not recall already delivered text.
+- Scoped evidence: current-feature UI scenario on the final APK; 254-test Mac regression plus additional metadata/auth boundary checks; see verification-0.5.27.md and the attached logs. Physical OEM phones, independent security testing and store-generated installs remain open.
