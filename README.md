@@ -8,7 +8,7 @@
 - [Android APK](https://github.com/yx3110/remote-vibe/releases/latest/download/Remote-Vibe.apk) · Android 8 或更新版本
 - [最新版本、安装说明和 SHA-256 校验文件](https://github.com/yx3110/remote-vibe/releases/latest)
 
-当前是 **0.5.21 测试版**。Mac 版尚未完成 Apple Developer ID 签名与公证，也未上架 Mac App Store；Android 尚未上架 Google Play。Intel Mac 和 iOS 版本暂未提供。
+当前是 **0.5.22 测试版**。Mac 版尚未完成 Apple Developer ID 签名与公证，也未上架 Mac App Store；Android 尚未上架 Google Play。Intel Mac 和 iOS 版本暂未提供。
 
 界面支持简体中文、繁體中文、English、日本語、Español、Italiano 和 Deutsch，可跟随系统或手动选择。手机「设置 → 语言」与 Mac 菜单栏的语言选择互不影响，离线也可切换。
 
@@ -21,6 +21,16 @@
 5. 按住说话需另装 TypeWhisper，下载语音模型并开启 API Server；App 设置提供下载入口。手机键盘自带的语音输入也可以使用。
 
 App 首次运行显示操作引导，以后可以从手机“设置”重新查看。Mac 设置中可以配置会话提醒与 Cursor/VS Code 终端扩展；需先自行安装和登录 Codex/Claude Code。
+
+## 安全与授权
+
+Mac 菜单栏可打开“安全与授权”。手机丢失或二维码泄露时，确认“撤销全部配对”，旧手机断开后重新扫码。Cloudflare 路由凭据如泄露还需管理员单独撤销。
+
+新建终端会话默认使用标准授权；如确有需要，可在此明确选择完全访问（YOLO）。该选项不修改现有会话、模型或 shell 别名。旧版本升级后请检查此偏好。
+
+会话列表支持长按拖动排序，顺序按每台 Mac 和运行/历史筛选分别保存；新消息不会打乱排列。
+
+正式发布待办见 [上线状态](LAUNCH-READINESS.md)。
 
 ## 三种连接方式
 
