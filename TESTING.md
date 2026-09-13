@@ -1,18 +1,20 @@
 # Testing and release gates
 
-Candidate: 0.5.22 (35). Automated device tests use isolated Android emulators and `android/qa_receiver.py`; it renders synthetic screen data and never posts desktop input to the actual Mac. A dedicated purpose=qa route is used for public Cloudflare transport checks. No production pairing credentials are included in this package.
+Candidate: 0.5.23 (36). Automated device tests use isolated Android emulators and `android/qa_receiver.py`; it renders synthetic screen data and never posts desktop input to the actual Mac. A dedicated purpose=qa route is used for public Cloudflare transport checks. No production pairing credentials are included in this package.
 
 ## Build validation
 
 - compileSdk / targetSdk 36; minSdk 26. Same version source as the Mac receiver.
-- The current candidate has 31 unit tests per distribution, 62 total (see the generated `verification.json` for exact suites/counts); both release lint tasks must have no errors. Warnings are retained in the reports, not suppressed to imply a clean audit.
+- The current candidate has 42 unit tests per distribution, 84 total (see the generated `verification.json` for exact suites/counts); both release lint tasks must have no errors. Warnings are retained in the reports, not suppressed to imply a clean audit.
 - Official bundletool validates the AAB. AAB and APK signatures verified; direct/Play certificates must match. No native `.so` libraries in the Android bundle.
 - Manifest gate rejects APK installer / direct battery exemption permissions in Play, exported updater provider, cleartext traffic, debugging or backup enabled.
 - Public privacy and support routes must return HTTP 200 without account authentication. Some automated HTTP clients can trigger hosting anti-bot rules; anonymous normal browser/curl access was checked.
 
 ## Runtime scenarios and evidence scope
 
-0.5.22 adds Mac-side pairing revocation and terminal permission choices. Compact All windows actions and background conversation submission were introduced in 0.5.21. Current-build evidence is listed in verification.json; prior scenario descriptions remain a baseline, not new test claims.
+0.5.23 tests notification Mac/session isolation, Java hash collisions in real Android PendingIntents, corrupt and unwritable encrypted pending storage, draft ownership after successful staging, and control/oversized text queue recovery. Failure checks use an injected storage boundary with the real Android Keystore. This does not simulate every physical disk or sudden-power-loss failure.
+
+0.5.22 added Mac-side pairing revocation and terminal permission choices. Compact All windows actions and background conversation submission were introduced in 0.5.21. Current-build evidence is listed in verification.json; prior scenario descriptions remain a baseline, not new test claims.
 
 0.5.20 added Japanese, Spanish, Italian and German to the existing English and Chinese interfaces, with seven-language real-picker, notification, draft/connection retention and first-use guide checks in `localization/`. Native button layout checks cover phone, large-font and unfolded sizes. The UI audit introduced in 0.5.18 and compatibility matrix introduced in 0.5.17 remain available; current-version reruns are exactly those listed in `verification.json`. The scenarios below describe the broader 0.5.16 release baseline and are not all claimed as newly rerun. Manufacturer ROM behavior still needs real devices.
 
@@ -21,6 +23,7 @@ Results are kept in the candidate's `runtime/` folder and summarized in `verific
 - `store`: Play-only update intent, blocked Mac update APIs (also checked in relay scenario), normal battery settings, privacy link, cancel data deletion, open-source notices, actual UI screenshots.
 - `setup`: one-time guide / existing-user migration, Android 16 Back, landscape, reopen, three connection modes and encrypted persistence.
 - default screen: pinch, zoom reset, scroll mode, fullscreen hold-to-talk / send / cancel, return to the screen tab without reconnecting.
+- `boundary`: malformed text followed by successful input/ESC, encrypted atomic staging and failure rollback, unrecoverable load does not overwrite ciphertext, no editable duplicate after receipt-save failure, Mac/session PendingIntent isolation and removed-Mac notification rejection.
 - `background`: leave activity, retain connection, title/latest-message attention notification, outage detection, automatic recovery, explicit disconnect persists.
 - `outbox`: lost receipt / retry, only one execution, delayed transcript reconciliation and reopened pending cleanup.
 - `store-demo`: recorded user-visible Connect, background foreground-service notification, attention message and Disconnect.
