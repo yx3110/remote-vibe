@@ -1,6 +1,6 @@
 # Testing and release gates
 
-Candidate: 0.5.24 (37). Automated device tests use isolated Android emulators and `android/qa_receiver.py`; it renders synthetic screen data and never posts desktop input to the actual Mac. A dedicated purpose=qa route is used for public Cloudflare transport checks. No production pairing credentials are included in this package.
+Candidate: 0.5.25 (38). Automated device tests use isolated Android emulators and `android/qa_receiver.py`; it renders synthetic screen data and never posts desktop input to the actual Mac. A dedicated purpose=qa route is used for public Cloudflare transport checks. No production pairing credentials are included in this package.
 
 ## Build validation
 
@@ -57,3 +57,7 @@ Official requirements: [target API](https://support.google.com/googleplay/androi
 ## Manual ordering (0.5.22)
 
 Long-press a session card and drag vertically, including the viewport edges. Dropping saves; Back, app backgrounding and dropping outside the list cancel. Check both active and history filters, search results, new-message refresh, reconnect, app recreation and another Mac. Ordering is local to the phone and applies to the loaded page; hidden search/page slots are retained. TalkBack offers move-up/down actions.
+
+## 0.5.25 scoped UI update
+
+Only the settings button/card hierarchy and shared release version changed. The current APK ran header checks on API 36 phone and compatibility checks on the fold-open profile, plus both channels' 86 unit tests and release lint. The 0.5.24 full-review scenarios above remain historical baseline, not rerun results for this APK.
