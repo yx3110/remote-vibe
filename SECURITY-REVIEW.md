@@ -48,3 +48,11 @@ The real Developer ID and Apple notarization workflow could not be executed: thi
 - Public QR authorization grants extensive Mac control. Screen, terminal and password capabilities need focused independent review. Physical device biometrics/OEM background behavior, Play-delivered installation, network changes and multi-user abuse testing remain open gates in TESTING.md.
 
 Codex flags were checked against the installed CLI and [official CLI reference](https://learn.chatgpt.com/docs/developer-commands?surface=cli). Mac distribution references and the exact command are in install/mac/DISTRIBUTION.md.
+
+## 0.5.27 current session, allowance and resend changes
+
+- Selected-session metadata refresh is independent of transcript paging. Confirmed model choices display immediately. Passive Terminal/iTerm reads never activate a tab; background polling does not invoke the editor clipboard bridge. Claude’s status-line adapter preserves an existing renderer and stores only model, effort, quota windows and timestamps in private files.
+- Codex allowance is read through the installed CLI app-server’s read-only account endpoint over stdio; no thread or model turn is started, no auth material reaches the phone, and refresh is bounded to once per minute. Claude quota is reported by the official status line after a supported subscription session receives a response. Missing windows and stale observations are explicit.
+- Both new metadata/allowance endpoints require paired authentication, a live lease and an unlocked Mac. Existing role/control boundaries are retained.
+- Every unconfirmed outbox state remains actionable. Manual resend validates the original receipt digest, checks transcript confirmation, refuses to duplicate queued/in-flight work, and records a separate retry ID durably. Transport replay of that retry ID cannot trigger another resend. An ambiguous CLI acceptance can still produce a duplicate after a deliberate new resend; the phone explains this before confirmation. Local deletion stops that phone’s retry record; it does not recall already delivered text.
+- Scoped evidence: current-feature UI scenario on the final APK; 254-test Mac regression plus additional metadata/auth boundary checks; see verification-0.5.27.md and the attached logs. Physical OEM phones, independent security testing and store-generated installs remain open.
