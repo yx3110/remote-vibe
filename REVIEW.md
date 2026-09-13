@@ -1,6 +1,6 @@
 # App review and foreground-service declaration draft
 
-App: Remote Vibe · package dev.switchpad.remote · candidate 0.5.20 (31).
+App: Remote Vibe · package dev.switchpad.remote · candidate 0.5.21 (33).
 
 ## Reviewer access
 
@@ -28,7 +28,7 @@ Suggested description:
 Impact if interrupted/deferred:
 “Closing or deferring the connection would interrupt user-requested live control and delay notifications from the paired computer. Network loss causes retries only while the user's connection intent remains enabled. Android force-stop and device power restrictions can still stop the service.”
 
-Demonstration video: `assets/foreground-service-demo.mp4`. Public asset URL: https://github.com/yx3110/remote-vibe/releases/download/v0.5.16/foreground-service-demo.mp4 . This video was recorded on the previous 0.5.16 candidate and demonstrates the unchanged service flow; it is not a 0.5.20 test recording. The video shows the actual app UI and service: Connect → view a session → leave activity → persistent connection and attention notification → return and Disconnect. The external data source is an isolated synthetic Mac receiver so no private screen or conversation is recorded. Its notification and networking execute through the production service. A public video URL is listed with the candidate release; include it in the Console declaration after verifying reviewer access.
+Demonstration video: `assets/foreground-service-demo.mp4`. Public asset URL: https://github.com/yx3110/remote-vibe/releases/download/v0.5.16/foreground-service-demo.mp4 . This video was recorded on the previous 0.5.16 candidate and demonstrates the unchanged service flow; it is not a 0.5.21 test recording. The video shows the actual app UI and service: Connect → view a session → leave activity → persistent connection and attention notification → return and Disconnect. The external data source is an isolated synthetic Mac receiver so no private screen or conversation is recorded. Its notification and networking execute through the production service. A public video URL is listed with the candidate release; include it in the Console declaration after verifying reviewer access.
 
 No full-screen-intent, background location, VPN service, accessibility service, SMS or call permissions are declared. Foreground microphone recording is user-held and stops on release/cancel; no microphone foreground service is used. The screen shown is the paired Mac screen, not background capture of the phone screen.
 
