@@ -8,7 +8,7 @@
 - [Android APK](https://github.com/yx3110/remote-vibe/releases/latest/download/Remote-Vibe.apk) · Android 8 或更新版本
 - [最新版本、安装说明和 SHA-256 校验文件](https://github.com/yx3110/remote-vibe/releases/latest)
 
-当前是 **0.5.29 测试版**。Mac 版尚未完成 Apple Developer ID 签名与公证，也未上架 Mac App Store；Android 尚未上架 Google Play。Intel Mac 和 iOS 版本暂未提供。
+当前是 **0.5.30 测试版**。Mac 版尚未完成 Apple Developer ID 签名与公证，也未上架 Mac App Store；Android 尚未上架 Google Play。Intel Mac 和 iOS 版本暂未提供。
 
 界面支持简体中文、繁體中文、English、日本語、Español、Italiano 和 Deutsch，可跟随系统或手动选择。手机「设置 → 语言」与 Mac 菜单栏的语言选择互不影响，离线也可切换。
 
@@ -72,3 +72,7 @@ Mac 更新：从菜单栏退出旧版，以新版 App 替换应用程序中的�
 ## 0.5.29 连接面板
 
 顶部连接状态保持紧凑，点开独立的 Material 3 底部面板，页面不会再被向下挤。连接操作、设备管理和版本信息重新分组，独立设置齿轮保留。适配手机、折叠屏、大字体与横屏；返回、旋转和切换设备入口保留草稿与连接。详见 [本版验证范围](https://github.com/yx3110/remote-vibe/releases/download/v0.5.29/verification-0.5.29.md)。
+
+## 0.5.30 回车键
+
+普通画面和全屏的回车键统一放在方向键中间，使用清晰居中的矢量图标和强调底色；遥控页中央回车使用同样样式。无需在工具条里寻找小号字符。详见 [本版验证范围](https://github.com/yx3110/remote-vibe/releases/download/v0.5.30/verification-0.5.30.md)。
