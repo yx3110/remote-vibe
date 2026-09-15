@@ -8,7 +8,7 @@
 - [Android APK](https://github.com/yx3110/remote-vibe/releases/latest/download/Remote-Vibe.apk) · Android 8 或更新版本
 - [最新版本、安装说明和 SHA-256 校验文件](https://github.com/yx3110/remote-vibe/releases/latest)
 
-当前是 **0.5.32 测试版**。Mac 版尚未完成 Apple Developer ID 签名与公证，也未上架 Mac App Store；Android 尚未上架 Google Play。Intel Mac 和 iOS 版本暂未提供。
+当前是 **0.5.33 测试版**。Mac 版尚未完成 Apple Developer ID 签名与公证，也未上架 Mac App Store；Android 尚未上架 Google Play。Intel Mac 和 iOS 版本暂未提供。
 
 界面支持简体中文、繁體中文、English、日本語、Español、Italiano 和 Deutsch，可跟随系统或手动选择。手机「设置 → 语言」与 Mac 菜单栏的语言选择互不影响，离线也可切换。
 
@@ -84,3 +84,7 @@ Mac 更新：从菜单栏退出旧版，以新版 App 替换应用程序中的�
 ## 0.5.32 额度与手机语音
 
 修复 Codex 后台启动的额度读取，补充 Claude 账户订阅额度与清晰的用量上限提醒。按住说话改用手机系统语音服务，识别结果先进入草稿，确认发送后才传文字到 Mac；无公开识别服务时可使用键盘语音，不需要 Mac 转写软件。详见 [本版验证范围](https://github.com/yx3110/remote-vibe/releases/download/v0.5.32/verification-0.5.32.md)。
+
+## 0.5.33 统一界面与会话问题
+
+新建会话使用 Codex / Claude Code 卡片；配对、模型、额度、历史与确认窗口统一主界面样式。修复横屏输入按钮遮挡和对话框软键盘焦点。Claude/Codex 的交互提问与选项显示在会话中，并提供临时回答和确认入口。详见 [本版验证范围](https://github.com/yx3110/remote-vibe/releases/download/v0.5.33/verification-0.5.33.md)。
