@@ -8,7 +8,7 @@
 - [Android APK](https://github.com/yx3110/remote-vibe/releases/latest/download/Remote-Vibe.apk) · Android 8 或更新版本
 - [最新版本、安装说明和 SHA-256 校验文件](https://github.com/yx3110/remote-vibe/releases/latest)
 
-当前是 **0.5.34 测试版**。Mac 版尚未完成 Apple Developer ID 签名与公证，也未上架 Mac App Store；Android 尚未上架 Google Play。Intel Mac 和 iOS 版本暂未提供。
+当前是 **0.5.35 测试版**。Mac 版尚未完成 Apple Developer ID 签名与公证，也未上架 Mac App Store；Android 尚未上架 Google Play。Intel Mac 和 iOS 版本暂未提供。
 
 界面支持简体中文、繁體中文、English、日本語、Español、Italiano 和 Deutsch，可跟随系统或手动选择。手机「设置 → 语言」与 Mac 菜单栏的语言选择互不影响，离线也可切换。
 
@@ -92,3 +92,7 @@ Mac 更新：从菜单栏退出旧版，以新版 App 替换应用程序中的�
 ## 0.5.34 直接切换 Mac
 
 连接状态面板直接列出其他已配对的 Mac，点名称即可连接。保留各 Mac 的草稿和独立设备管理入口。详见 [本版验证范围](https://github.com/yx3110/remote-vibe/releases/download/v0.5.34/verification-0.5.34.md)。
+
+## 0.5.35 修复新建会话
+
+修复源码安装下 Codex 启动脚本模块加载失败，以及 Terminal 复用已结束标签编号后无法识别新标签的问题。详见 [本版验证范围](https://github.com/yx3110/remote-vibe/releases/download/v0.5.35/verification-0.5.35.md)。
