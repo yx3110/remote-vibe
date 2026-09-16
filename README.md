@@ -8,7 +8,7 @@
 - [Android APK](https://github.com/yx3110/remote-vibe/releases/latest/download/Remote-Vibe.apk) · Android 8 或更新版本
 - [最新版本、安装说明和 SHA-256 校验文件](https://github.com/yx3110/remote-vibe/releases/latest)
 
-当前是 **0.5.36 测试版**。Mac 版尚未完成 Apple Developer ID 签名与公证，也未上架 Mac App Store；Android 尚未上架 Google Play。Intel Mac 和 iOS 版本暂未提供。
+当前是 **0.5.37 测试版**。Mac 版尚未完成 Apple Developer ID 签名与公证，也未上架 Mac App Store；Android 尚未上架 Google Play。Intel Mac 和 iOS 版本暂未提供。
 
 界面支持简体中文、繁體中文、English、日本語、Español、Italiano 和 Deutsch，可跟随系统或手动选择。手机「设置 → 语言」与 Mac 菜单栏的语言选择互不影响，离线也可切换。
 
@@ -100,3 +100,7 @@ Mac 更新：从菜单栏退出旧版，以新版 App 替换应用程序中的�
 ## 0.5.36 每台 Mac 独立连接方式
 
 可分别为每台 Mac 保存本地 Wi-Fi、公网中转或 Tailscale；设置其他 Mac 不会切换当前连接，设备列表可查看已保存的连接方式。修复旧状态覆盖其他设备设置和重新扫码重置连接方式的问题。详见 [本版验证范围](https://github.com/yx3110/remote-vibe/releases/download/v0.5.36/verification-0.5.36.md)。
+
+## 0.5.37 Claude 模型与语音路由
+
+Claude 模型可直接应用，思考强度单独调整；修复 Terminal 旧标签误匹配和菜单刷新时序。手机录音优先使用已就绪的 Mac 转写服务，不可用时使用手机语音。详见 [本版验证范围](https://github.com/yx3110/remote-vibe/releases/download/v0.5.37/verification-0.5.37.md)。
